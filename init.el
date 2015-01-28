@@ -1,4 +1,5 @@
 ;; Colors
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'monokai t)
 
 ;; ido-mode is great for autocompleting stuff in the minibuffer.
@@ -26,5 +27,5 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
-(setq org-agenda-files (ilst "~/org/agenda.org"))
+(setq org-agenda-files (list "~/org/agenda.org"))
 
