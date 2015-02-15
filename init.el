@@ -1,3 +1,13 @@
+;; packages
+(require 'package)
+(package-initialize)
+(defun ensure-installed (package)
+  (if (not (package-installed-p package))
+      (package-install package)))
+
+(let ((package-list '(company)))
+  (mapc (lambda (x) (ensure-installed x)) package-list))
+
 ;; Colors
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'monokai t)
@@ -13,6 +23,13 @@
 ;; Get rid of that nagging startup screen
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message t)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+
+;; Auto-complete with company mode (requires company-mode package)
+(company-mode t)
+(add-hook 'after-init-hook 'global-company-mode)
+
 
 ;; CC-mode style preferences + automatic indentation. (electric-mode terrible in Python)
 (defun my-c-mode-hook ()
