@@ -1,9 +1,14 @@
 ;; packages
 (require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
+
 (defun ensure-installed (package)
   (if (not (package-installed-p package))
       (package-install package)))
+
+(ensure-installed 'racket-mode)
 
 (let ((package-list '(company)))
   (mapc (lambda (x) (ensure-installed x)) package-list))
@@ -46,3 +51,12 @@
 (setq org-log-done t)
 (setq org-agenda-files (list "~/org/agenda.org"))
 
+;; Racket mode
+(if (string-match "apple" (emacs-version))
+    ;; Racket on OS X doesn't go in PATH, need to set these manually
+    (progn
+      (setq racket-racket-program "/Applications/Racket v6.1.1/bin/racket")
+      (setq racket-raco-program "/Applications/Racket v6.1.1/bin/raco")))
+(add-hook 'racket-mode-hook
+	  (lambda ()
+	    (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
