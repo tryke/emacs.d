@@ -8,9 +8,7 @@
   (if (not (package-installed-p package))
       (package-install package)))
 
-(ensure-installed 'racket-mode)
-
-(let ((package-list '(company)))
+(let ((package-list '(company racket-mode helm)))
   (mapc (lambda (x) (ensure-installed x)) package-list))
 
 ;; Colors
@@ -50,6 +48,10 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (setq org-agenda-files (list "~/org/agenda.org"))
+
+;; helm mode stuff
+(require 'helm)
+(define-key global-map (kbd "M-x") 'helm-M-x)
 
 ;; Racket mode
 (if (string-match "apple" (emacs-version))
