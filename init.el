@@ -41,6 +41,7 @@
   (electric-indent-mode 1)
   (local-set-key (kbd "C-o") 'ff-find-related-file))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; Org-mode
 (require 'org)
