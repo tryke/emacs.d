@@ -8,7 +8,7 @@
   (if (not (package-installed-p package))
       (package-install package)))
 
-(let ((package-list '(company racket-mode helm)))
+(let ((package-list '(company racket-mode helm flycheck rtags)))
   (mapc (lambda (x) (ensure-installed x)) package-list))
 
 ;; Colors
@@ -32,6 +32,13 @@
 ;; Auto-complete with company mode (requires company-mode package)
 (company-mode t)
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; Real-time linting with flycheck
+(add-hook 'after-init-hook 'global-flycheck-mode)
+
+;; Enable rtags (install rtags on your own and run rdm)
+(require 'rtags)
+(rtags-enable-standard-keybindings)
 
 
 ;; CC-mode style preferences + automatic indentation. (electric-mode terrible in Python)
