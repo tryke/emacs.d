@@ -1,19 +1,22 @@
 ;; packages
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+	("marmalade" . "http://marmalade-repo.org/packages")
+	("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
 (defun ensure-installed (package)
   (if (not (package-installed-p package))
       (package-install package)))
 
-(let ((package-list '(company racket-mode helm flycheck rtags)))
+(let ((package-list '(company racket-mode helm flycheck rtags
+			      material-theme better-defaults)))
   (mapc (lambda (x) (ensure-installed x)) package-list))
 
 ;; Colors
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(load-theme 'monokai t)
+(load-theme 'material t)
 
 ;; ido-mode is great for autocompleting stuff in the minibuffer.
 (ido-mode 1)
