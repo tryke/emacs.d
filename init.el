@@ -11,7 +11,9 @@
       (package-install package)))
 
 (let ((package-list '(company racket-mode helm flycheck rtags
-			      material-theme better-defaults)))
+			      material-theme better-defaults
+                              elpy annotate irony company-irony
+                              flycheck-irony)))
   (mapc (lambda (x) (ensure-installed x)) package-list))
 
 ;; Colors
@@ -39,10 +41,31 @@
 ;; Real-time linting with flycheck
 (add-hook 'after-init-hook 'global-flycheck-mode)
 
+;; Emacs Lisp Python Environment -- indent, syntax, completion, repl, etc.
+;; requires you to 'pip install flake8 jedi ipython'
+(elpy-enable)
+(elpy-use-ipython)
+(when (require 'flycheck nil t) ;; Replace flymake with flycheck
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
 ;; Enable rtags (install rtags on your own and run rdm)
 (require 'rtags)
 (rtags-enable-standard-keybindings)
 
+;; Irony stuff
+(add-hook 'c-mode-common-hook 'irony-mode)
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 ;; CC-mode style preferences + automatic indentation. (electric-mode terrible in Python)
 (defun my-c-mode-hook ()
