@@ -44,8 +44,8 @@
 ;; You can simply uncomment the following if you'd like to get started with
 ;; MELPA packages quickly:
 ;;
-;; (with-eval-after-load 'package
-;;   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+(with-eval-after-load 'package
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
 
 ;; If you want to turn off the welcome screen, uncomment this
 ;(setopt inhibit-splash-screen t)
@@ -163,7 +163,7 @@ If the new path's directories does not exist, create them."
 (pixel-scroll-precision-mode)                         ; Smooth scrolling
 
 ;; Use common keystrokes by default
-(cua-mode)
+;; (cua-mode)
 
 ;; Display line numbers in programming mode
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -198,9 +198,17 @@ If the new path's directories does not exist, create them."
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; (use-package dracula-theme
+;;   :ensure t)
+
+(use-package kanagawa-themes :ensure t)
+
+(add-to-list 'custom-theme-load-path
+	     (expand-file-name "themes/" user-emacs-directory))
+
 (use-package emacs
   :config
-  (load-theme 'modus-vivendi))          ; for light theme, use modus-operandi
+  (load-theme 'kanagawa-wave t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -213,10 +221,10 @@ If the new path's directories does not exist, create them."
 
 ;; UI/UX enhancements mostly focused on minibuffer and autocompletion interfaces
 ;; These ones are *strongly* recommended!
-;(load-file (expand-file-name "extras/base.el" user-emacs-directory))
+(load-file (expand-file-name "extras/base.el" user-emacs-directory))
 
 ;; Packages for software development
-;(load-file (expand-file-name "extras/dev.el" user-emacs-directory))
+(load-file (expand-file-name "extras/dev.el" user-emacs-directory))
 
 ;; Vim-bindings in Emacs (evil-mode configuration)
 ;(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
@@ -224,7 +232,7 @@ If the new path's directories does not exist, create them."
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See
 ;; the file extras/org-intro.txt for help.
-;(load-file (expand-file-name "extras/org.el" user-emacs-directory))
+(load-file (expand-file-name "extras/org.el" user-emacs-directory))
 
 ;; Email configuration in Emacs
 ;; WARNING: needs the `mu' program installed; see the elisp file for more
@@ -245,7 +253,10 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(which-key)))
+ '(custom-safe-themes
+   '("603a831e0f2e466480cdc633ba37a0b1ae3c3e9a4e90183833bc4def3421a961" default))
+ '(package-selected-packages
+   '(org-roam markdown-mode kanagawa-themes dracula-theme dracula orderless eat kind-icon cape corfu-terminal corfu marginalia vertico embark-consult embark consult avy json-mode yaml-mode magit which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

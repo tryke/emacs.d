@@ -172,7 +172,8 @@
   (eat-term-name "xterm")
   :config
   (eat-eshell-mode)                     ; use Eat to handle term codes in program output
-  (eat-eshell-visual-command-mode))     ; commands like less will be handled by Eat
+  (eat-eshell-visual-command-mode)      ; commands like less will be handled by Eat
+  (setq eat-term-scrollback-size nil))  ; RJ: unlimited scrollback (costs memory)
 
 ;; Orderless: powerful completion style
 (use-package orderless
