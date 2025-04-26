@@ -210,6 +210,11 @@ If the new path's directories does not exist, create them."
   :config
   (load-theme 'kanagawa-wave t))
 
+;;; Swap option & cmd on MacOS so that positions match Win/Linux
+(if (string-search "apple" url-os-type)
+    (progn (setopt mac-option-modifier 'super)
+	   (setopt mac-command-modifier 'meta)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Optional extras
